@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+		/>
+		<title>Atlantis - Explore a hidden city of unblocked games, a proxy, and more...</title>
+
+		
+	<!--
+		<script src="/scram/scramjet.all.js"></script>
+		<script src="/baremux/index.js"></script>
+		<script src="register-sw.js" defer></script>
+		<script src="search.js" defer></script>
+		<script src="index.js" defer></script>
+	 UNCOMENT.   !!!!!!-->
+	 		<link rel="stylesheet" href="index.css" />
+			<link rel="shortcut icon" href="/img/Logo-Guy-Thick-Lines-Square-Crop.png"  id="favicon-link">
+	</head>
+
+	<body>
+	<main>
+		<div class="vanta" style="position: absolute; top: 0px; left: 0px; width: 100vw; height: 100vh; display: none;"></div>
+
+		<iframe src="/start.html" id="content-frame"></iframe>
+		<div class="header-main">
+			<img id="logo" src="img/oceanic-logo.png" class="btn-element" onclick="sideBarIconOnClick('start.html')">
+			<p>⸻</p>
+			<img id="search-img" src="img/searchIcon.png" class="btn-element" onclick="sideBarIconOnClick('/prxy/index.html')"> <!--style="filter: brightness(1.1);"-->
+			<img id="gms-img" src="img/GameLogoOceanicSqaure.png" class="btn-element" onclick="sideBarIconOnClick('gms.html')" style="filter: brightness(0.9);">
+			<img id="apps" src="img/AppsIconOceanic.png" class="btn-element" onclick="sideBarIconOnClick('apps.html')">
+			<img id="ai" src="img/AILogoOceanic.png" class="btn-element"  onclick="sideBarIconOnClick('ai.html')">
+			<p id="hor-bar-top">⸻</p>
+			<img id="setting-img" src="img/SettingIconOceanic.png" class="btn-element" onclick="sideBarIconOnClick('settings.html')">  
+			<img id="github-icon-img" src="img/GithubIconOceanic.png" class="btn-element">
+		</div>
+
+
+</main>
+<style>
+	:root {
+		--bgFilter: brightness(90%);
+	}
+
+	body {
+		overflow: hidden;
+	}
+
+	body::before {
+		content: '';
+		background-color: rgba(0, 0, 0, 0);
+		backdrop-filter: var(--bgFilter);
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 100vw;
+		height: 100vh;
+	}
+</style>
+	<script>
+
+		const mainFrame = document.getElementById("content-frame");
+
+
+			function changeFavAndTitle(faviconHref, title) {
+		let favicon = document.querySelector("#favicon-link");
+		favicon.href = faviconHref;
+
+		document.title = title;
+	}
+
+
+		function sideBarIconOnClick(page) {
+			document.documentElement.style.setProperty("--bgFilter", "brightness(90%)")
+			mainFrame.src = page;
+		}
+
+
+		window.addEventListener("message", (event) => {
+  		//event.data
+			let message = event.data
+
+			if (message.bgFilter) {
+				document.documentElement.style.setProperty("--bgFilter", message.bgFilter);
+			}
+
+			if (message.cloak) {
+				changeFavAndTitle(message.cloak.favicon, message.cloak.title)
+			}
+		
+	});
+
+	function applyFavicon() {
+		let selectedFavOption = localStorage.getItem("selectedFavOption")
+		let customConfig = JSON.parse(localStorage.getItem("customFavConfig"))
+		let favKey = {
+            "Clever": {
+                fav: "/img/favicons/clever.png",
+                ttl: "Clever | Portal"
+            },
+
+            "Google Classroom": {
+                fav: "https://www.gstatic.com/classroom/ic_product_classroom_144.png",
+                ttl: "Home - Classroom"
+            },
+            "Google Drive": {
+                fav: "https://www.gstatic.com/classroom/ic_product_classroom_144.png",
+                ttl: "Home - Google Drive"
+            },
+
+            "None": {
+                fav: "/img/Logo-Guy-Thick-Lines-Square-Crop.png",
+                ttl: "Atlantis - Explore a hidden city of unblocked games, a proxy, and more..."
+            }
+        }
+
+		if (selectedFavOption != "Custom") {
+			let fav = favKey[selectedFavOption].fav
+			let ttl = favKey[selectedFavOption].ttl
+			
+			changeFavAndTitle(fav, ttl)
+		} else {
+			changeFavAndTitle(customConfig.fav, customConfig.ttl)
+		}
+	}
+
+	applyFavicon()
+
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+<script>
+VANTA.FOG({
+  el: ".vanta",
+   mouseControls: true,
+  touchControls: true,
+  gyroControls: false,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  highlightColor: 0x0,
+  midtoneColor: 0x0,
+  lowlightColor: 0x0,
+  baseColor: 0x2161,
+  speed: 0.60
+})
+
+
+
+
+
+sideBarIconOnClick('/settings.html')
+</script>
+
+
+	</body>
+</html>

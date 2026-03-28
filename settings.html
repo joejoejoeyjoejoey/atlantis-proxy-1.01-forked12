@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        :root {
+            --dropBG: rgb(75, 150, 172);  /*0, 208, 255, 0.18*/
+            --dropHvrBG: rgba(255, 255, 255, 0.05);
+
+            --dropTxtClr: rgb(255, 255, 255);
+            --dropFontSize: 1rem;
+
+            --dropWidth: 12rem;
+            --dropHeight: 2.5rem;
+
+            --dropBorderWidth: 1.5px;
+            --dropBorderColor: rgba(211, 211, 211, 0);
+            --dropBorderRad: 10px;
+            --dropBgFilter: invert(1) blur(3px) ;
+
+            --dropMarginTop: 4px;
+
+            --caretColor: rgb(255, 255, 255);
+
+        }
+    </style>
+    <link rel="stylesheet" href="dropdown_1.0/drop.css">
+    <script src="dropdown_1.0/drop.js"></script>
+    <script>console.log(dropLib)</script>
+
+    <style>
+        :root {
+            --btnBg: rgba(0, 0, 0, 0);
+            --btnBgFilter: invert(1) blur(3px) brightness(80%);
+            --btnHvrBg: rgba(255, 255, 255, 0.05);
+            --btnWidth: 12rem;
+            --btnHeight: 2.5rem;
+            --btnBorderRaduis: 10px;
+            --btnBorderClr: rgba(164, 234, 255, 0.239);
+            --btnTxtClr: rgb(255, 255, 255);
+
+
+            --mainBg: rgba(0, 0, 0, 0);
+            --innerSectionBg: rgba(0, 0, 0, 0.232);
+            --innetSectionFil: blur(5px) brightness(80%);
+        }
+
+        .dropdown-options li {
+        font-family: Arial, Helvetica, sans-serif;
+        }
+
+        button:not(.dropdown) {
+            background-color: var(--btnBg);
+            backdrop-filter: var(--btnBgFilter);
+            width: var(--btnWidth);
+            height: var(--btnHeight);
+            transition: all 0.2s ease;
+            border: 2px solid var(--btnBorderClr);
+            border-radius: var(--btnBorderRaduis);
+            cursor: pointer;
+            color: var(--btnTxtClr);
+            font-weight: 700;
+        }
+
+        button:active {
+            background-color: var(--btnHvrBg);
+        }
+
+        .main-settings {
+            width: 65vw;
+            background-color: var(--mainBg);
+        }
+
+        .setting-section-cloak {
+            display: flex;
+            flex-shrink: 0;   /* prevents shrinking */
+            flex-grow: 0;     /* prevents growing */
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--innerSectionBg);
+            backdrop-filter: var(--innetSectionFil);
+            width: 90%;
+            height: fit-content;
+            border-radius: 30px;
+            padding: 30px;
+        }
+
+        .center-content {
+            display: flex;
+            justify-content: center;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+
+        input {
+            background-color: var(--btnBg);
+            backdrop-filter: var(--btnBgFilter);
+            width: var(--btnWidth);
+            height: var(--btnHeight);
+            transition: all 0.2s ease;
+            border: none;
+            border-radius: var(--btnBorderRaduis);
+            color: var(--btnTxtClr);
+            font-weight: 700;
+        }
+        /*
+        -----------------------------------
+        -- +++ ==TAB CLOAK STYLING== +++ -- 
+        -----------------------------------
+        */
+
+        .setting-section-cloak {
+            color: aliceblue;
+            margin: 0px;
+            justify-content: space-between;
+            
+        }
+
+        #customCloakSettings {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            width: 70%;
+            border: 2px solid rgba(0, 195, 255, 0.184);
+            border-radius: 10px;
+            padding: 2%;
+            transition: all 0.1s ease;
+        }
+
+            .CloakOp {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                margin: 0px;
+                align-items: center;
+                padding: 0px 200px 0px 200px;
+            }
+        
+            .CloakOp div h2{
+                margin-right: 20px;
+            }
+
+
+            .CloakOp input{
+                text-align: center;
+                font-size: 1em;
+                font-weight: normal;
+            }
+
+            /*============*/
+
+            main {
+                display: flex;
+                justify-content: center;
+            }
+
+            .main-content {
+                display: flex;
+                width: 80vw
+            }
+
+            .left-bar {
+                width: 100%;
+                background-color: aqua;
+                margin-right: 10px;
+            }
+
+</style>
+
+</head>
+<body>
+    <main>
+    <div class="main-content">
+
+
+    <div class="left-bar">
+        <div style="background-color: aliceblue;">
+            <p>op one</p>
+        </div>
+    </div>
+        <!--HI-->
+    <div class="right-bar">
+        <div class="center-content">
+    <div class="main-settings">
+
+        
+        <div class="setting-section-cloak">
+            <h1>Tab Cloak</h1>
+
+                <h3>How would you like to cloak this tab?</h3>
+ <div style="display: block;">
+<button class="dropdown" id="cloaksDropdown">
+    </button>
+    <ul class="dropdown-options">
+        <li>None</li>
+        <li>Google Classroom</li>
+        <li>Clever</li>
+        <li>Google Drive</li>
+        <li>Custom</li>
+    </ul>
+            </div>
+
+
+    
+    <div style="opacity: 0;" id="customCloakSettings">
+        <div class="CloakOp">
+            <div><h2>Title:</h2></div>
+            
+            <div><input type="text" id="pageTitleInpt"></div>
+        </div>
+        
+    <div class="CloakOp">
+            <div><h2>Favicon:</h2></div>
+            
+            <div><input type="text" id="faviconChangeInpt"></div>
+        </div>
+
+
+    </div>
+               
+            <button id="save-costum-favicon" onclick="saveSettings()">Save</button>  
+               </div>
+               <div style="margin-bottom: 1000000rem;"> </div>
+
+                
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    </div>
+
+    </div>
+
+    
+</main>
+
+
+    <script>
+        console.log(dropLib)
+        //https://icon.horse/icon/${ICON}
+        let pageTitle = localStorage.getItem("pageTitle") || "Atlantis - Explore a hidden city of unblocked games, a proxy, and more..."
+        let pageFavLink = localStorage.getItem("faviconLink") || "/img/Logo-Guy-Thick-Lines-Square-Crop.png"
+
+        let selectedFavOption = localStorage.getItem("selectedFavOption") || "None"
+
+
+        let favKey = {
+            "Clever": {
+                fav: "/img/favicons/clever.png",
+                ttl: "Clever | Portal"
+            },
+
+            "Google Classroom": {
+                fav: "https://www.gstatic.com/classroom/ic_product_classroom_144.png",
+                ttl: "Home - Classroom"
+            },
+            "Google Drive": {
+                fav: "https://www.gstatic.com/classroom/ic_product_classroom_144.png",
+                ttl: "Home - Google Drive"
+            },
+
+            "None": {
+                fav: "/img/Logo-Guy-Thick-Lines-Square-Crop.png",
+                ttl: "Atlantis - Explore a hidden city of unblocked games, a proxy, and more..."
+            }
+        }
+
+        let customFavConfig
+
+        if (localStorage.getItem("customFavConfig")) {
+
+            customFavConfig = JSON.parse(localStorage.getItem("customFavConfig"))
+
+        } else {
+
+            customFavConfig = {
+            fav: "",
+            ttl: ""
+        }
+
+            let titleInpt = document.querySelector("#pageTitleInpt")
+            
+            customFavConfig.ttl = titleInpt.value;
+            pageTitle = titleInpt.value;
+
+
+            let favChngInpt = document.querySelector('#faviconChangeInpt');
+
+            customFavConfig.fav = "https://icon.horse/icon/" + normalizeUrl(favChngInpt.value);
+            pageFavLink = "https://icon.horse/icon/" + normalizeUrl(favChngInpt.value);
+            console.log("CUSTOM")
+        }
+
+        
+
+
+        //localStorage.setItem("pageTitle", pageTitle)
+           //     localStorage.setItem("faviconLink", pageFavLink)
+//===================================================================================================================
+//                                                                                                                    |
+        document.querySelector("#cloaksDropdown").addEventListener("change", (event) => {
+
+            if (event.detail != "Custom") {
+            resetCustomFav()
+
+            pageTitle = favKey[event.detail].ttl
+            pageFavLink = favKey[event.detail].fav
+                console.log(pageTitle, "   |  ", pageFavLink)
+            } else {
+                showCustomFav()
+
+            let titleInpt = document.querySelector("#pageTitleInpt")
+            
+            customFavConfig.ttl = titleInpt.value;
+            pageTitle = titleInpt.value;
+
+
+            let favChngInpt = document.querySelector('#faviconChangeInpt');
+
+            customFavConfig.fav = "https://icon.horse/icon/" + normalizeUrl(favChngInpt.value);
+            pageFavLink = "https://icon.horse/icon/" + normalizeUrl(favChngInpt.value);
+            console.log("CUSTOM")
+            }
+            selectedFavOption = event.detail;
+        });
+
+        document.querySelector("#pageTitleInpt").addEventListener("change", function () {
+            let thisEl = document.querySelector("#pageTitleInpt")
+
+            customFavConfig.ttl = this.value;
+            pageTitle = this.value;
+            
+        })
+
+
+        document.querySelector('#faviconChangeInpt').addEventListener("change", function () {
+            let thisEl = document.querySelector('#faviconChangeInpt');
+
+            customFavConfig.fav = "https://icon.horse/icon/" + normalizeUrl(this.value);
+            pageFavLink = "https://icon.horse/icon/" + normalizeUrl(this.value);
+        })
+        //                                                                                                            |
+//===================================================================================================================
+        function showCustomFav() {
+            let customFavDiv = document.querySelector("#customCloakSettings")
+            customFavDiv.style.opacity = "1"
+            customFavDiv.style.height = ""
+            customFavDiv.style.border = ""
+
+            
+        }
+
+        function resetCustomFav() {
+            let customFavDiv = document.querySelector("#customCloakSettings")
+            customFavDiv.style.opacity = "0"
+            customFavDiv.style.height = "10px"
+            customFavDiv.style.border = "none"
+        }
+
+        resetCustomFav()
+
+        function saveSettings() {
+            parent.postMessage({
+                    "cloak": {
+                        "favicon": pageFavLink,
+                        "title": pageTitle
+                    }
+                })
+
+                console.log("Saved Settings, Fav: ", pageFavLink, " Title: ", pageTitle)
+
+                localStorage.setItem("selectedFavOption", selectedFavOption)
+                localStorage.setItem("customFavConfig", JSON.stringify(customFavConfig))
+        }
+
+                function normalizeUrl(url) {
+  try {
+    // add protocall
+    let withProtocol = url.match(/^https?:\/\//) ? url : `https://${url}`;
+    let  hostname  = new URL(withProtocol);
+    hostname = hostname.hostname
+    // remove www
+    return hostname.replace(/^www\./, "");
+  } catch {
+    return url; // original if error
+  }
+}
+
+function doStartUpStuffFav() {
+    let selectedOption = selectedFavOption;
+    let cloaksDropdown = document.querySelector("#cloaksDropdown");
+    let customCloakObject = customFavConfig;
+
+    dropLib.setDropdown(cloaksDropdown, selectedOption)
+
+    let pageTitleInpt = document.querySelector("#pageTitleInpt")
+    let pageFavInpt = document.querySelector("#faviconChangeInpt")
+
+    pageTitleInpt.value = customCloakObject.ttl;
+
+
+    let url = customCloakObject.fav;
+    url = url.match(/[^/]+$/)[0];
+
+    pageFavInpt.value = url;
+
+    if (selectedOption === "Custom") {
+            let titleInpt = document.querySelector("#pageTitleInpt")
+            
+            customFavConfig.ttl = titleInpt.value;
+            pageTitle = titleInpt.value;
+
+
+            let favChngInpt = document.querySelector('#faviconChangeInpt');
+
+            customFavConfig.fav = "https://icon.horse/icon/" + normalizeUrl(favChngInpt.value);
+            pageFavLink = "https://icon.horse/icon/" + normalizeUrl(favChngInpt.value);
+            console.log("CUSTOM")
+    }
+
+    //https://icon.horse/icon/poki.com
+}
+
+/*
+ <div><input type="text" id="pageTitleInpt"></div>
+        </div>
+        
+    <div class="CloakOp">
+            <div><h2>Favicon:</h2></div>
+            
+            <div><input type="text" id="faviconChangeInpt"></div>
+        </div>
+
+*/
+        requestAnimationFrame(()=> {
+        requestAnimationFrame(()=> {
+        requestAnimationFrame(()=> {
+        requestAnimationFrame(()=> {
+        requestAnimationFrame(()=> {
+        requestAnimationFrame(()=> {
+        requestAnimationFrame(()=> {
+        requestAnimationFrame(()=>{
+            doStartUpStuffFav()
+        }) 
+        })
+        })
+        })
+        })
+        })
+        })
+        })
+
+
+        // idk y i have 2 to dis, but i do
+
+        
+    </script>
+    
+    
+    </style>
+</body>
+</html>

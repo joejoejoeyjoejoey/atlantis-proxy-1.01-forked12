@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Oceanic Apps</h1>
+    <div id="seporator" style="margin-top: 100px;"></div>
+<div id="apps-container" style="zoom: 80%;">
+
+    <div class="app-card">
+        <div class="innerDivImg">
+        <img src="img/BlobberIcon.png">
+        </div>
+        <div class="innerDivP">
+        <p>Blobber (4 securly)</p>
+        </div>
+    </div>
+
+</div>
+    <style>
+
+        :root {
+            --app-cardBg: rgba(0, 115, 164, 0.347);
+            --app-card-inner-Bg: rgba(0, 0, 0, 0.199);
+            --app-card-accent-bg: rgba(0, 46, 111, 0.289);
+            --bgBlur: blur(40px);
+            --hoverBgBlur: blur(70px);
+        }
+
+        #apps-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            text-align: center;
+            color: aliceblue;
+        }
+
+        .app-card {
+            --margin: 30px;
+            height: 340px;
+            width: 280px;
+            background-color: var(--app-cardBg);
+            backdrop-filter: var(--bgBlur);
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            transition: 0.2s ease;
+            margin: var(--margin);
+            border: 3px solid rgb(149, 203, 215);
+        }
+
+        .app-card:hover {
+            transform: translateY(-6px) scale(1.0167);
+            backdrop-filter: var(--hoverBgBlur);
+            background-clip: border-box;
+        }
+
+        .app-card .innerDivP {
+            position: absolute;
+            display: flex;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgb(255, 255, 255);
+            font-weight: bolder;
+            font-size: 27px;
+            margin: 0px;
+            text-align: center;
+            width: 100%;
+            height: 40px;
+            border-radius: 10px;
+            justify-content: center;
+            justify-self: center;
+        }
+
+        .app-card p {
+            margin: 0px;
+            margin-top: 3px;
+            text-shadow: 0px 0px 1px rgb(157, 201, 255);
+        }
+
+        .app-card img {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translate(-50%);
+            width: 88%;
+            height: 240px;
+            border-radius: 20px;
+        }
+
+        .app-card .innerDivImg {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translate(-50%);
+            border-radius: 20px;
+            width: 93%;
+            height: 270px;
+            /*background-color: var(--app-card-inner-Bg);*/
+        }
+    </style>
+
+    <script>
+
+
+        window.parent.postMessage({
+            bgFilter: "blur(0px) brightness(80%)"
+        });
+
+        function createAppCard(name, img) {
+            let outerDiv = document.createElement('div')
+            outerDiv.classList.add('app-card')
+
+            
+
+            outerDiv.innerHTML = `
+        <div class="innerDivImg">
+             <img src="${img}">
+        </div>
+        <div class="innerDivP">
+            <p>${name}</p>
+        </div>
+            `
+            
+            document.getElementById("apps-container").appendChild(outerDiv)
+            /*
+      <div class="app-card">
+        <div class="innerDivImg">
+             <img src="img/BlobberIcon.png">
+        </div>
+        <div class="innerDivP">
+            <p>Blobber (4 securly)</p>
+        </div>
+    </div>
+            
+            */
+
+            return outerDiv
+        }
+
+            for (let i = 0; i < 10; i++) {
+                console.log(createAppCard('blobber', 'img/BlobberIcon.png'));
+            }
+            
+    </script>
+</body>
+</html>

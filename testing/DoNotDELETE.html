@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        :root {
+            --dropBG: rgb(230, 163, 6);
+            --dropHvrBG: rgb(205, 113, 0);
+
+            --dropTxtClr: rgb(255, 255, 255);
+            --dropFontSize: 1rem;
+
+            --dropWidth: 12rem;
+            --dropHeight: 2.5rem;
+
+            --dropBorderWidth: 1.5px;
+            --dropBorderColor: rgba(211, 211, 211, 0);
+            --dropBorderRad: 10px;
+
+            --dropMarginTop: 4px;
+
+            --caretColor: rgb(255, 255, 255);
+
+        }
+
+        .dropdown {
+            position: relative;
+
+            width: var(--dropWidth);
+            height: var(--dropHeight);
+            border: none;
+
+            /* Syntax: border: [border-width] [border-style] [border-color];  I CANT REMEMBER THIS :A*/
+
+            border: var(--dropBorderWidth) solid var(--dropBorderColor);
+            border-radius: var(--dropBorderRad);
+            background-color: var(--dropBG);
+            color: var(--dropTxtClr);
+            font-size: var(--dropFontSize);
+
+            text-align: left;
+            padding-left: 20px;
+
+            cursor: pointer;
+        }
+
+        .dropdown::before { /*ARROW CARRET*/
+            content: '';
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            height: 20px;
+            width: 20px;
+
+            background-color: var(--caretColor);
+            mask: no-repeat center/contain url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'><path d='M7 14.5L12 9.5L17 14.5' stroke-width='2.5' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+
+            transform: translateY(-50%) rotate(180deg);
+            transition: 0.2s ease;
+        }
+
+        .open.dropdown::before {
+           transform: translateY(-50%) rotate(0deg);
+        }
+
+        .dropdown-options {
+            position: absolute;
+            list-style: none;
+            display: none;
+            padding-left: 0px;
+            margin-top: var(--dropMarginTop);
+
+            width: fit-content;
+            background-color: var(--dropBG);
+            font-size: var(--dropFontSize);
+            border-radius: var(--dropBorderRad);
+            overflow: hidden;
+        }
+
+        .dropdown-options.selectedDrop {
+            z-index: 1;
+        }
+
+        .dropdown-options li {
+            position: relative;
+            display: flex;
+            align-items: center; 
+            padding-left: 20px;
+            z-index: 2;
+            width: var(--dropWidth);
+            height: var(--dropHeight);
+            box-sizing: border-box;
+            cursor: pointer;
+            color: var(--dropTxtClr);
+        }
+
+        .dropdown-options li:hover {
+            background-color: var(--dropHvrBG);
+        }
+
+        .hiddenDropdownOp {
+            display: none !important;
+        }
+
+        .selectedDrop {
+            display: block !important;
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+    
+
+    <button class="dropdown" id="firstDrop">
+    </button>
+    <ul class="dropdown-options">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    
+
+    <h1>OPTION 2</h1>
+
+    <button class="dropdown">
+    </button>
+    <ul class="dropdown-options">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    
+    <h1>IDK TESTING</h1>
+
+
+    <button class="dropdown"></button>
+    <ul class="dropdown-options">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+    </ul>
+
+
+
+
+
+<p>USING BUILT-IN "DROPDOWN"</p>
+
+<select>
+  <option value="1">1</option>
+  <option value="2" selected>2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+</select>
+
+
+        <script>
+
+
+           /*   
+            *  -||||||||||||||||||||||||||||||||||||||-
+            * ---========================================---
+            * ---========================================---
+            * ---== START OF CUSTOM DROPDOWN "LIBRARY" ==---
+            * ---========================================---
+            * ---========================================---
+            *   -||||||||||||||||||||||||||||||||||||||-
+            */  
+            
+            
+
+            document.querySelectorAll('.dropdown').forEach(btn => {
+                let ul = btn.nextElementSibling;
+
+                let ulDisplay = 'block'
+
+                let showOp = ul.firstElementChild;
+                showOp.classList.add("hiddenDropdownOp")
+
+                btn.textContent = showOp.textContent
+                btn.setAttribute('data-selected', btn.textContent)
+
+                btn.addEventListener("click", () => {
+                    
+
+                    if (ul.classList.contains('selectedDrop')) {
+                        ul.classList.remove('selectedDrop')
+                        btn.classList.remove('open')
+                    } else if (!ul.classList.contains('selectedDrop')) {
+                        document.querySelector('.selectedDrop')?.classList.remove('selectedDrop')
+                        document.querySelector('.open')?.classList.remove('open')
+
+                        ul.classList.add('selectedDrop')
+                        btn.classList.add('open')
+                        
+                    }
+
+                    //ul.classList.toggle('selectedDrop')
+
+
+
+                })
+
+               Array.from(ul.children).forEach (li => {
+
+                    li.addEventListener("click", () => {
+                        //remove hidden from all
+                        Array.from(ul.children).forEach(li => {
+                            li.classList.remove('hiddenDropdownOp')
+                        })
+                        li.classList.add('hiddenDropdownOp')
+                        btn.textContent = li.textContent
+
+                        ul.classList.remove('selectedDrop')
+                        btn.classList.remove('open')
+                        btn.setAttribute('data-selected', li.textContent)
+                    })
+
+                })
+                
+
+            });
+
+            let observer = new MutationObserver((mutations) => {
+                
+                for (const mutation of mutations) {
+                    let value = mutation.target.getAttribute("data-selected")
+                    let btn = mutation.target
+                    try {
+                    mutation.target.dispatchEvent(new CustomEvent("change", {"bubbles": true, "detail": value}))                        
+
+                     btn.textContent = value
+                    let ul = btn.nextElementSibling
+                    Array.from(ul.children).forEach(li => {
+                        
+                        if (li.textContent == value) {
+
+                            Array.from(ul.children).forEach(li => {
+                                li.classList.remove('hiddenDropdownOp')
+                    })
+
+                    li.classList.add('hiddenDropdownOp')
+                            
+                        }
+
+                    })
+
+                    } catch(e) {
+                         e = e.toString()
+
+                        if (e.includes('ReferenceError') && e.includes('is not defined')) {
+                console.warn(`
+                --- DROPDOWN ERROR ---
+                
+                DEFINE dropDownChanged() function
+                OR alternitavely just add an event listiner, "change", to the dropdown
+
+                Use the parameters inputed, the dropdown element, and value that it changed to for the dropdown that changed, and the value it changed to
+                
+                eg;
+
+                function dropDownChanged(drop, val) {
+                     console.log(drop, val)
+                }
+                `)
+                        } else {
+                            console.error(e)
+                        }
+
+
+
+                    }
+
+                }
+
+            })
+
+            function activateDropdowns() {
+            
+                const buttons = document.querySelectorAll('.dropdown')
+            
+            buttons.forEach(el => {
+                
+                observer.observe(el, {
+                attributes: true,
+                attributeFilter: ["data-selected"]
+            })
+
+            })
+            }
+            activateDropdowns()
+                
+            function closeAllDrops() {
+                document.querySelectorAll('.dropdown').forEach(btn => {
+                    let ul = btn.nextElementSibling
+
+                    btn.classList.remove('open')
+                    ul.classList.remove('selectedDrop')
+
+                    
+                })
+            }
+
+            document.addEventListener("click", (e) => {
+                if (e.target.closest('.dropdown') || e.target.closest('dropdown-options')) return
+
+                closeAllDrops()
+            });
+
+
+                        console.log(`
+            --DROPDOWN 1.0--
+        Thanks you for using this
+               :USAGE:
+            
+--------------------------------------
+
+ <button class="dropdown">
+    </button>
+    <ul class="dropdown-options">
+        <li>option one</li>
+        <li>option twp</li>
+        <li>option three</li>
+        <li>option four</li>
+    </ul>
+--------------------------------------
+
+    Read value on the dropdown, or add an event listiner, and read event.detail from the event
+            `)
+
+
+           /*   
+            *  -||||||||||||||||||||||||||||||||||||||-
+            * ---======================================---
+            * ---======================================---
+            * ---== END OF CUSTOM DROPDOWN "LIBRARY" ==---
+            * ---======================================---
+            * ---======================================---
+            *   -||||||||||||||||||||||||||||||||||||||-
+            */  
+
+
+
+
+
+
+
+
+
+            function ge(el) { //GET ELEMENT
+                return document.querySelector(el)
+            }
+
+            ge('#firstDrop').addEventListener("change", (event) => { //ge = get element/document.querySelector
+                console.log(event.detail)
+            })
+
+
+        </script>
+
+</body>
+</html>

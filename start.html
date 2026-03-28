@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+		/>
+		<title>Oceanic</title>
+
+		<link rel="shortcut icon" content="favicon.webp" />
+	<!--
+		<script src="/scram/scramjet.all.js"></script>
+		<script src="/baremux/index.js"></script>
+		<script src="register-sw.js" defer></script>
+		<script src="search.js" defer></script>
+		<script src="index.js" defer></script>
+	 UNCOMENT.   !!!!!!-->
+	 		<link rel="stylesheet" href="index.css" />
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+			<link rel="stylesheet" href="GlassTesting/glass.css">
+            <style>
+                html, body {
+                    background: none;
+                }
+
+
+
+            </style>
+	<script>
+	
+
+	</script>
+
+	</head>
+
+	<body>
+	<main>
+<!--
+		<div class="header-main">
+			<img id="logo" src="img/oceanic-logo.png" class="btn-element">
+			<p>⸻</p>
+			<img id="search-img" src="img/searchIcon.png" class="btn-element">
+			<img id="gms-img" src="img/GameLogoOceanicSqaure.png" class="btn-element">
+			<img id="apps" src="img/AppsIconOceanic.png" class="btn-element">
+			<img id="ai" src="img/AILogoOceanic.png" class="btn-element">
+			<p id="hor-bar-top">⸻</p>
+			<img id="setting-img">
+		</div>-->
+<div id="search-headings">
+	<h1 class="top-1 logo-text">Atlantis</h1>
+	<h2 class="top-1 below-logo-text">" Always remebmber that you are totally unique, just like everyone else. „</h2>
+<!--Search form-->
+		<form id="sj-form" class="flex-center">
+
+
+			<input class="input-sj" id="sj-address" type="text" placeholder="Search the web freely" />
+
+
+			
+
+			</div>
+
+		</form>
+		<!--sj error <p> -->
+		<div class="desc left-margin">
+			<p id="sj-error"></p>
+			<pre id="sj-error-code"></pre>
+		</div>
+		
+</div>
+</main>
+
+
+	<script>
+		// TO ANIMATE PLACEHOLDER OF INPUT
+
+
+		
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+		console.log('HI')
+		console.log(document.querySelector('.input-sj'))
+      document.querySelector('.input-sj').classList.add('placeholderFade')
+	  console.log(document.querySelector('.input-sj'))
+
+    });
+  });
+
+  document.querySelector("#sj-form").addEventListener("submit", (e) => {
+	event.preventDefault(e)
+	let input = document.querySelector(".input-sj")
+	goToPxy(input.value)
+  })
+
+
+  	function goToPxy(input) {
+		window.top.sideBarIconOnClick('/prxy/index.html?search=' + input)
+	}
+		
+	</script>
+	
+	</body>
+</html>
